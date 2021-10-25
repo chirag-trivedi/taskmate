@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Todo List Edit</title>
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+        <h1>{{ task_obj.task }}</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <input type="text" name="task" placeholder="{{task_obj.task}}" value="{{task_obj.task}}">
+            </div>
+            <button type="submit">Update Task</button>
+
+        </form>
+
+
+    </div>
+{% endblock content  %}

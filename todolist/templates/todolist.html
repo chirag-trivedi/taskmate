@@ -3,3 +3,64 @@
 {% block title %}
     <title>Todo List Manager</title>
 {% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        </br>
+        {% if messages %}
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+
+                <input type="text" name="task" placeholder="New Task?">
+
+
+            </div>
+            <button type="submit">Add Task</button>
+
+        </form>
+
+            <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Task</th>
+                        <th scope="col">Done</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% if all_tasks %}
+
+                {% for obj in all_tasks %}
+                        {% if obj.done %}
+                        <tr>
+                        <td> {{ obj.id }}|{{ obj.task }}</td>
+                        <td>Completed</td>
+                        <td><a href="{% url 'edit_task' obj.id %}">Edit</a></td>
+                        <td><a href="{% url 'delete_task' obj.id %}">Delete</a></td>
+                        </tr>
+
+                        {% else %}
+                        <tr>
+                        <td> {{ obj.id }}|{{ obj.task }}</td>
+                        <td>Not Completed</td>
+                        <td><a href="{% url 'edit_task' obj.id %}">Edit</a></td>
+                        <td><a href="{% url 'delete_task' obj.id %}">Delete</a></td>
+                        </tr>
+                        {%  endif %}
+
+            </br>
+        {% endfor  %}
+        {% endif %}
+        </tbody>
+                    </table>
+    </div>
+
+{% endblock content %}
