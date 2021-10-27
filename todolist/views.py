@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from todolist.models import TaskList
 from todolist.forms import TaskForm
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -15,13 +16,29 @@ def todolist(request):
         return redirect('todolist')
     else:
 
-        all_tasks = TaskList.objects.all
+        all_tasks = TaskList.objects.all()
+        paginator = Paginator(all_tasks, 5)
+        page = request.GET.get('pg')
+        all_tasks = paginator.get_page(page)
 
         return render(request, 'todolist.html',{'all_tasks': all_tasks})
 
 def delete_task(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     task.delete()
+    return redirect('todolist')
+
+def complete_task(request, task_id):
+    task = TaskList.objects.get(pk=task_id)
+    task.done = True
+    task.save()
+    return redirect('todolist')
+
+
+def pending_task(request, task_id):
+    task = TaskList.objects.get(pk=task_id)
+    task.done = False
+    task.save()
     return redirect('todolist')
 
 def edit_task(request, task_id):

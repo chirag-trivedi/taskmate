@@ -42,7 +42,7 @@
                         {% if obj.done %}
                         <tr>
                         <td> {{ obj.id }}|{{ obj.task }}</td>
-                        <td>Completed</td>
+                        <td><a href="{% url 'pending_task' obj.id %}">Mark as Pending</a></td>
                         <td><a href="{% url 'edit_task' obj.id %}">Edit</a></td>
                         <td><a href="{% url 'delete_task' obj.id %}">Delete</a></td>
                         </tr>
@@ -50,7 +50,7 @@
                         {% else %}
                         <tr>
                         <td> {{ obj.id }}|{{ obj.task }}</td>
-                        <td>Not Completed</td>
+                        <td><a href="{% url 'complete_task' obj.id %}">Mark as Complete</a></td>
                         <td><a href="{% url 'edit_task' obj.id %}">Edit</a></td>
                         <td><a href="{% url 'delete_task' obj.id %}">Delete</a></td>
                         </tr>
@@ -61,6 +61,8 @@
         {% endif %}
         </tbody>
                     </table>
+
+ 
     </div>
 
 {% endblock content %}

@@ -12,6 +12,7 @@
             {% csrf_token %}
             <div>
                 <input type="text" name="task" placeholder="{{task_obj.task}}" value="{{task_obj.task}}">
+                <input type="hidden" name="done" value="{{task_obj.done}}">
             </div>
             <button type="submit">Update Task</button>
 
