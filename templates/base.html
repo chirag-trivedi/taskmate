@@ -29,6 +29,11 @@
         </div>
         </div>
     </div>
+    {% if user.is_authenticated %}
+    <p>Logged In</p>
+    {% else %}
+    <p> Logged Out </p>
+    {% endif %}
 </nav>
 
 
